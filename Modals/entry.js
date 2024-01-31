@@ -41,7 +41,7 @@ const entrySchema = new mongoose.Schema({
   },
   admin: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "admin",
+    ref: "Admin",
     require: true,
   },
   createdAt: {
