@@ -34,3 +34,8 @@ export const login = async (req, res) => {
 
   res.status(200).json({ message: `Welcome ${admin.Adminname}`, token });
 };
+
+
+export const adminProfile = async (req,res) =>{
+  res.json({admin:req.admin})
+}

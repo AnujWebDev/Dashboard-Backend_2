@@ -3,19 +3,33 @@ import bcrypt from "bcryptjs";
 import jwt, { decode } from "jsonwebtoken";
 
 export const register = async (req, res) => {
-  const { name, email, password ,phone} = req.body;
-  // console.log(req.body);
+  const { name, email, password, phone } = req.body;
+  
+  console.log('Request Body:', req.body);
+
   let user = await User.findOne({ email });
   let userPhone = await User.findOne({ phone });
 
-  if (user || userPhone) return res.status(404).json({ message: "User already exist..!" });
+  if (user || userPhone) {
+    return res.status(404).json({ message: "User already exists!" });
+  }
 
-  const hashPassword = await bcrypt.hash(password, 10);
+  try {
+    console.log('Password before hashing:', password);
 
-  user = await User.create({ name, email, password: hashPassword,phone });
+    const hashPassword = await bcrypt.hash(password, 10);
 
-  res.status(201).json({ message: "User Register Successfully!", user });
+    console.log('Password after hashing:', hashPassword);
+
+    user = await User.create({ name, email, password: hashPassword, phone });
+
+    res.status(201).json({ message: "User registered successfully!", user });
+  } catch (error) {
+    console.error('Error during registration:', error);
+    res.status(500).json({ message: "Internal server error during registration." });
+  }
 };
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -53,4 +67,8 @@ export const getUserById = async (req,res) =>{
   res.json({user});
 
 
+}
+
+export const myProfile = async (req,res) =>{
+  res.json({user:req.user})
 }

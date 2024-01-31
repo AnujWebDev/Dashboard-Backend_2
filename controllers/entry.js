@@ -9,9 +9,9 @@ export const addEntry = async (req, res) => {
     EntryPrice,
     ExitPrice,
     Status,
-    Pnl,
     Package,
   } = req.body;
+  const pnl = (ExitPrice - EntryPrice) * Qty;
 
   const entry = await Entry.create({
     Stratergy,
@@ -21,7 +21,7 @@ export const addEntry = async (req, res) => {
     EntryPrice,
     ExitPrice,
     Status,
-    Pnl,
+    Pnl: pnl, // Set the calculated PnL
     Package,
     admin: req.admin,
   });
@@ -56,7 +56,7 @@ export const updateEntry = async (req, res) => {
 
   if (!entry) return res.json({ message: "Invalid Id" });
 
-  (entry.Stratergy = Stratergy), (entry.Script = Script), (entry.Qty = Qty),(entry.Side=Side),(entry.EntryPrice=EntryPrice),(entry.EntryPrice=EntryPrice),(entry.ExitPrice=ExitPrice),(entry.Status=Status),(entry.Pnl=Pnl),(entry.Package=Package);
+  (entry.Stratergy = Stratergy), (entry.Script = Script), (entry.Qty = Qty),(entry.Side=Side),(entry.EntryPrice=EntryPrice),(entry.EntryPrice=EntryPrice),(entry.ExitPrice=ExitPrice),(entry.Status=Status),(entry.Pnl),(entry.Package=Package);
 
   await entry.save();
 
@@ -83,5 +83,5 @@ export const getEntryById = async (req, res) => {
 
   if (!entry) return res.json({ message: "Entry not exist" });
 
-  res.json({message:"Your Entry by id...",Entry})
+  res.json({message:"Your Entry by id...",entry})
 };

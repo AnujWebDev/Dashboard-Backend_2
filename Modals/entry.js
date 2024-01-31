@@ -31,11 +31,9 @@ const entrySchema = new mongoose.Schema({
   },
   Pnl: {
     type: String,
-    require: true,
   },
   Package:{
     type:String,
-    require:true
   },
   Status:{
     type:String,
