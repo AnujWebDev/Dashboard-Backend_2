@@ -48,7 +48,6 @@ export const updateEntry = async (req, res) => {
     EntryPrice,
     ExitPrice,
     Status,
-    Pnl,
     Package,
   } = req.body;
 
@@ -56,12 +55,21 @@ export const updateEntry = async (req, res) => {
 
   if (!entry) return res.json({ message: "Invalid Id" });
 
-  (entry.Stratergy = Stratergy), (entry.Script = Script), (entry.Qty = Qty),(entry.Side=Side),(entry.EntryPrice=EntryPrice),(entry.EntryPrice=EntryPrice),(entry.ExitPrice=ExitPrice),(entry.Status=Status),(entry.Pnl),(entry.Package=Package);
+  entry.Stratergy = Stratergy;
+  entry.Script = Script;
+  entry.Qty = Qty;
+  entry.Side = Side;
+  entry.EntryPrice = EntryPrice;
+  entry.ExitPrice = ExitPrice;
+  entry.Status = Status;
+  entry.Package = Package;
+  entry.Pnl = (ExitPrice - EntryPrice) * Qty;
 
   await entry.save();
 
-  res.json({ message: "Entry has been updated..!", entry});
+  res.json({ message: "Entry has been updated..!", entry });
 };
+
 
 export const deleteById=async(req,res)=>{
     const entryID=req.params.id;
