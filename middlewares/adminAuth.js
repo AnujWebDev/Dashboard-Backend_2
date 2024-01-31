@@ -8,7 +8,7 @@ export const AdminAuthenticate = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
     const id = decoded.adminId;
-    // console.log(decoded.userId);
+    // console.log(decoded.adminId);
     let admin = await Admin.findById(id);
     if (!admin) return res.json({ message: "Admin Not exist" });
     req.admin = admin;
