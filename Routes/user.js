@@ -1,5 +1,5 @@
 import express from "express"
-import { getAllUsers, getUserById, login, myProfile, register } from "../controllers/user.js";
+import { getAllUsers, getUserById, login, myProfile, register, updateUsers } from "../controllers/user.js";
 import { Authenticate } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -15,5 +15,7 @@ router.get("/users",getAllUsers);
 router.get("/user/:id",Authenticate, getUserById);
 
 router.get("/profile",Authenticate,myProfile)
+
+router.put("/user/:id",Authenticate,updateUsers);
 
 export default router

@@ -72,3 +72,22 @@ export const getUserById = async (req,res) =>{
 export const myProfile = async (req,res) =>{
   res.json({user:req.user})
 }
+
+export const updateUsers = async (req, res) => {
+  const id = req.params.id;
+
+  const {
+    name, email, password, phone
+    
+  } = req.body;
+
+  let user = await User.findById(id);
+
+  if (!user) return res.json({ message: "Invalid Id" });
+  user.name = name;
+  user.email = email;
+  user.phone=phone
+  await user.save();
+
+  res.json({ message: "User Details has been updated..!", user });
+};

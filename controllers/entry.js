@@ -21,7 +21,7 @@ export const addEntry = async (req, res) => {
     EntryPrice,
     ExitPrice,
     Status,
-    Pnl: pnl, // Set the calculated PnL
+    Pnl: pnl,
     Package,
     admin: req.admin,
   });
