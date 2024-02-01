@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt, { decode } from "jsonwebtoken";
 
 export const register = async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password, phone,packages } = req.body;
   
   console.log('Request Body:', req.body);
 
@@ -65,8 +65,6 @@ export const getUserById = async (req,res) =>{
   if(!user) return res.json({message:'User not exist'})
 
   res.json({user});
-
-
 }
 
 export const myProfile = async (req,res) =>{
@@ -77,7 +75,7 @@ export const updateUsers = async (req, res) => {
   const id = req.params.id;
 
   const {
-    name, email, password, phone
+    name, email, packages, phone
     
   } = req.body;
 
@@ -86,8 +84,25 @@ export const updateUsers = async (req, res) => {
   if (!user) return res.json({ message: "Invalid Id" });
   user.name = name;
   user.email = email;
-  user.phone=phone
+  user.phone=phone;
+  user.packages=packages;
   await user.save();
 
   res.json({ message: "User Details has been updated..!", user });
+};
+export const PackageUsers = async (req, res) => {
+  const id = req.params.id;
+
+  const {
+     packages
+  } = req.body;
+
+  let user = await User.findById(id);
+
+  if (!user) return res.json({ message: "Invalid Id" });
+  
+  user.packages=packages;
+  await user.save();
+
+  res.json({ message: "Packaged Assigned..!", user });
 };

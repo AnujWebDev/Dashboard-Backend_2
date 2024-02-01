@@ -25,8 +25,9 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "user",
   },
-  package:{
-    type:String
+  packages:{
+    type:String,
+    default:"No Package"
   },
   createdAt: {
     type: Date,
