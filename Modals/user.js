@@ -29,6 +29,14 @@ const userSchema = mongoose.Schema({
     type:String,
     default:"No Package"
   },
+  time:{
+    type:String,
+    default:"No time"
+  },
+  device:{
+    type:String,
+    default:"No Device"
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
